@@ -1,0 +1,1 @@
+# Cleans retrieved data and makes it easily usable
