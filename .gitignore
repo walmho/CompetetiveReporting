@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Custom Git Ignore
-media/*
+media/
