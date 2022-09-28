@@ -20,6 +20,7 @@ def get_page(city, state, country, n=5, debug=False):
     """
     
     allPrices = []
+    allRatings = []
     
     try:
         # Create base string
@@ -43,15 +44,22 @@ def get_page(city, state, country, n=5, debug=False):
             soup = bs(res.text, 'html.parser')
 
             listings = soup.find_all("div", {"class": "c4mnd7m dir dir-ltr"})
-            # Should also find stay rankings for better analysis
 
             for l in listings:
                 left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
                 price = int(left.split("$")[1])
                 allPrices.append(price)
 
-        return True, allPrices
+                rating = str(l.find_all("span", {"class": "ru0q88m dir dir-ltr"})[0]).split(" per")[0]
+                value = str((rating.split(">")[1]).split("(")[0])
+                #Defaulting new listings without any ratings to a null value. May want to consider removing corresponding houses
+                if value[0] == "N":
+                    value = "New"
+                allRatings.append(value)
+
+        return True, allPrices, allRatings
     
     except:
-        return False, allPrices
+        print("Error")
+        return False, allPrices, allRatings
     
