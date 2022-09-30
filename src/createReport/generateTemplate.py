@@ -1,8 +1,8 @@
 from jinja2 import Environment, FileSystemLoader
 
-def createBase(txtFile):
-    loader=FileSystemLoader("templates/")
-    environment = Environment(loader)
-    template = environment.get_template(txtFile)
-    template.render()
-    return template
+def createBase(txtFile, index, value):
+    file_loader = FileSystemLoader('templates')
+    env = Environment(loader=file_loader)
+    template = env.get_template(txtFile)
+    out = template.render(number=index, value=value)
+    return out
