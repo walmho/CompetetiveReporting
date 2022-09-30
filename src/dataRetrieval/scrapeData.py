@@ -1,5 +1,6 @@
 # Uses an API to get the needed data
 
+from msilib.schema import Error
 from bs4 import BeautifulSoup as bs
 import requests
 
