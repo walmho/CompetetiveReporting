@@ -50,9 +50,11 @@ def get_page(city, state, country, n=5, debug=False):
                 left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
                 price = int(left.split("$")[1])
                 allPrices.append(price)
-
-                rating = str(l.find_all("span", {"class": "ru0q88m dir dir-ltr"})[0]).split(" per")[0]
+                
+                #Error comes from rating
+                rating = str(l.find_all("span", {"class": "r1dxllyb dir dir-ltr"})[0]).split(" per")[0]
                 value = str((rating.split(">")[1]).split("(")[0])
+
                 #Defaulting new listings without any ratings to a null value. May want to consider removing corresponding houses
                 if value[0] == "N":
                     value = "New"
@@ -61,6 +63,8 @@ def get_page(city, state, country, n=5, debug=False):
         return True, allPrices, allRatings
     
     except Exception as e:
+        # print(f"{len(allPrices)}\n\n{allPrices}")
+        # print(f"{len(allRatings)}\n\n{allRatings}")
         print(e)
         return False, allPrices, allRatings
     
