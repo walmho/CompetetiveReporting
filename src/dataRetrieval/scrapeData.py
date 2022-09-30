@@ -60,7 +60,7 @@ def get_page(city, state, country, n=5, debug=False):
 
         return True, allPrices, allRatings
     
-    except:
-        print("Error")
+    except Exception as e:
+        print(e)
         return False, allPrices, allRatings
     
