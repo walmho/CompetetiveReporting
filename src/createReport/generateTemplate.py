@@ -1,4 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
+from datetime import datetime
 
 #Should turn this into a class
 def createBase(txtFile, index, value, rating):
@@ -9,5 +10,10 @@ def createBase(txtFile, index, value, rating):
     return out
 
 def printOut(file, line):
-    with open(file, 'w') as f:
+    with open(file, 'a+') as f:
+        # Clears any current report. May want to make an archive folder instead and move any previous content there
         f.write(f"{line}\n")
+
+def dateReport(file):
+    with open(file, 'a+') as f:
+        f.write(f"\nReport generated at {datetime.now()}\n")

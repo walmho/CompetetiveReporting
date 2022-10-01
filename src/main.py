@@ -1,8 +1,9 @@
 from dataRetrieval.scrapeData import get_page
-from createReport.generateTemplate import createBase, printOut
+from createReport.generateTemplate import createBase, printOut, dateReport
 
 if __name__ == "__main__":
     status, houseList, ratings = get_page("Hillsboro", "Oregon", "US", debug=False)
     for index in range(len(houseList)):
         basic = createBase("basics.txt", index, houseList[index], ratings[index])
-        printOut("output.txt", basic)
+        printOut("templates/output.txt", basic)
+    dateReport("templates/output.txt")
