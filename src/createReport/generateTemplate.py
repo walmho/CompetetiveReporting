@@ -15,5 +15,5 @@ def printOut(file, line):
         f.write(f"{line}\n")
 
 def dateReport(file):
-    with open(file, 'a+') as f:
+    with open(file, 'w') as f:
         f.write(f"\nReport generated at {datetime.now()}\n")
