@@ -10,4 +10,3 @@ if __name__ == "__main__":
     for index in range(len(ppN)):
         basic = txtTemplate.createBase("basics.txt", index+1, ppN[index], ratings[index])
         txtTemplate.printOut(outFile, basic)
-    
