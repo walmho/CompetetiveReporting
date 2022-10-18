@@ -1,4 +1,3 @@
-import jinja2
 from jinja2 import Environment, FileSystemLoader
 import pandas as pd
 from datetime import datetime
@@ -21,21 +20,8 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def loadTemplate(template, index, value, rating):
-        template_loader = jinja2.FileSystemLoader(searchpath="./")
-        template_env = jinja2.Environment(loader=template_loader)
-        template_file = template
-        template = template_env.get_template(template_file)
-        output_text = template.render(
-            name=index,
-            address=value,
-            date=datetime.now(),
-            invoice=rating,
-            item=rating,
-            amount=rating,
-            )
-
-        html_path = template
-        html_file = open(html_path, 'w')
-        html_file.write(output_text)
-        html_file.close()
+    def loadTemplate(template, value, rating):
+        x = value[0]
+        y = rating[0]
+        env = Environment(loader=FileSystemLoader('.'))
+        template = env.get_template(template)
