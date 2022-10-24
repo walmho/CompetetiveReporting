@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     pdfOutput = pdfTemplate(ppN, ratings, location)
     pdfOutput.loadTemplate()
-    pdfOut("templates/mainLayout.html", "outputs/report.pdf")
+    pdfOut("outputs/outputTest.html", "outputs/report.pdf")
 
     # txtTemplate.dateReport(outFile)
     # for index in range(len(ppN)):
