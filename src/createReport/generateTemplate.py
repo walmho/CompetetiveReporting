@@ -25,6 +25,7 @@ class txtTemplate():
 class pdfTemplate():
     def __init__(self, ppN, ratings, location):
         self.ppN = ppN
+        self.average = float(sum(ppN)/(len(ppN)))
         self.ratings = ratings
         self.city = location["city"]
         self.state = location["state"]
@@ -40,9 +41,11 @@ class pdfTemplate():
             state=self.state,
             country=self.country,
             time=datetime.now(),
+            averagePrice=self.average,
+
         )
 
-        html_path = "./outputs/outputTest.html"
+        html_path = "./outputs/updated.html"
         html_file = open(html_path, 'w+')
         html_file.write(output_text)
         html_file.close()
