@@ -20,8 +20,27 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def loadTemplate(template, value, rating):
-        x = value[0]
-        y = rating[0]
-        env = Environment(loader=FileSystemLoader('.'))
-        template = env.get_template(template)
+    def __init__(self, ppN, ratings, location):
+        self.ppN = ppN
+        self.ratings = ratings
+        self.city = location["city"]
+        self.state = location["state"]
+        self.country = location["country"]
+
+    def loadTemplate(self):
+        template_loader = FileSystemLoader(searchpath="./templates")
+        template_env = Environment(loader=template_loader)
+        template_file = "test.html"
+        template = template_env.get_template(template_file)
+        output_text = template.render(
+            city=self.city,
+            state=self.state,
+            country=self.country,
+            time=datetime.now(),
+        )
+
+        html_path = "./outputs/outputTest.html"
+        html_file = open(html_path, 'w+')
+        html_file.write(output_text)
+        html_file.close()
+
