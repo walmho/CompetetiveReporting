@@ -1,5 +1,6 @@
 import pdfkit
-def printOut(html_path, pdf_path):
+config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+def pdfOut(html_path, pdf_path):
     """
     Convert html to pdf using pdfkit which is a wrapper of wkhtmltopdf
     """
@@ -14,4 +15,4 @@ def printOut(html_path, pdf_path):
         'enable-local-file-access': None
     }
     with open(html_path) as f:
-        pdfkit.from_file(f, pdf_path, options=options)
+        pdfkit.from_file(f, pdf_path, options=options, configuration=config)

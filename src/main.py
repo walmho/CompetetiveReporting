@@ -1,6 +1,6 @@
 from dataRetrieval.scrapeData import get_page
 from createReport.generateTemplate import txtTemplate, pdfTemplate
-from sendReport.sendOff import printOut
+from sendReport.sendOff import pdfOut
 
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
 
@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
     pdfOutput = pdfTemplate(ppN, ratings, location)
     pdfOutput.loadTemplate()
-    printOut("templates/mainLayout.html", "outputs/report.pdf")
+    pdfOut("templates/mainLayout.html", "outputs/report.pdf")
 
     # txtTemplate.dateReport(outFile)
     # for index in range(len(ppN)):

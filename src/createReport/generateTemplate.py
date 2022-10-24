@@ -1,6 +1,9 @@
 from jinja2 import Environment, FileSystemLoader
 import pandas as pd
 from datetime import datetime
+import pdfkit
+
+config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
 
 class txtTemplate():
     def createBase(txtFile, index, value, rating):
@@ -43,4 +46,3 @@ class pdfTemplate():
         html_file = open(html_path, 'w+')
         html_file.write(output_text)
         html_file.close()
-
