@@ -25,7 +25,10 @@ class txtTemplate():
 class pdfTemplate():
     def __init__(self, ppN, ratings, location):
         self.ppN = ppN
-        self.average = float(sum(ppN)/(len(ppN)))
+        try:
+            self.average = float(sum(ppN)/(len(ppN)))
+        except ZeroDivisionError:
+            print("Empty list of values. Defaulting average to 100")
         self.ratings = ratings
         self.city = location["city"]
         self.state = location["state"]
