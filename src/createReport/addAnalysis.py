@@ -22,6 +22,8 @@ def cleanDict(removeType, dictionary):
         #Bypass if house has no ratings, don't add it to cleaned dictionary
         except ValueError:
             pass
+    
+    # print(f"{dictionary}\n{cleanDictionary}\n\n\n{len(dictionary)}\n{len(cleanDictionary)}")
     return cleanDictionary
 
 def averagePPN(costValues):

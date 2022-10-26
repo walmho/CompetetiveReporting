@@ -23,9 +23,11 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def __init__(self, ratings, location, averagePPN):
+    def __init__(self, totalScraped, ratings, location, averagePPN, unrated):
         self.average = averagePPN
         self.ratings = ratings
+        self.unrated = unrated
+        self.scraped = totalScraped
         self.city = location["city"]
         self.state = location["state"]
         self.country = location["country"]
@@ -33,7 +35,7 @@ class pdfTemplate():
     def loadTemplate(self):
         template_loader = FileSystemLoader(searchpath="./templates")
         template_env = Environment(loader=template_loader)
-        template_file = "test.html"
+        template_file = "mainLayout.html"
         template = template_env.get_template(template_file)
         output_text = template.render(
             city=self.city,
@@ -41,8 +43,11 @@ class pdfTemplate():
             country=self.country,
             time=datetime.now(),
             averagePrice=self.average,
+            unratedHouses = self.unrated,
+            totalScrapedHouses = (self.scraped*20)
 
         )
+            
 
         html_path = "./outputs/updated.html"
         html_file = open(html_path, 'w+')

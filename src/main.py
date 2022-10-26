@@ -4,7 +4,10 @@ from createReport.addAnalysis import dictFromLists, cleanDict, averagePPN, expen
 from createReport.generateTemplate import pdfTemplate
 from sendReport.sendOff import pdfOut
 
+#temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
+n = 10
+
 #Need to add string documentation to all of this
 """An important note is that the Airbnb website displays their best rated / superhost homes FIRST. This means that
 as of right now in the code, all scraped ratings are almost always going to be above 4. This makes data analysis
@@ -14,19 +17,15 @@ scrape 10x more data when creating the final report.
 if __name__ == "__main__":
     outFile = "outputs/output.txt"
     templateFile = "templates/mainLayout.html"
-    status, ppN, ratings = get_page(location["city"], location["state"], location["country"], n=1, debug=False)
+    status, ppN, ratings = get_page(location["city"], location["state"], location["country"], n, debug=False)
 
     #creating dictionary of cost:rating relationships.
     costRatingRaw = dictFromLists(ppN, ratings)
-    print(len(costRatingRaw))
-    
     #Cleaning the dictionary (ratings are marked as "new" if they are a new listing/have no ratings. This is a no-no)
     costRatingCleaned = cleanDict(float, costRatingRaw)
-    print(len(costRatingCleaned))
-    
     ppnAverage = averagePPN(costRatingCleaned)
-    print(ppnAverage)
+    unrated = len(costRatingRaw) - len(costRatingCleaned)
 
-    pdfOutput = pdfTemplate(ratings, location, ppnAverage)
+    pdfOutput = pdfTemplate(n, ratings, location, ppnAverage, unrated)
     pdfOutput.loadTemplate()
     pdfOut("outputs/updated.html", "outputs/report.pdf")
