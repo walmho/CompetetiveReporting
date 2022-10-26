@@ -23,12 +23,8 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def __init__(self, ppN, ratings, location):
-        self.ppN = ppN
-        try:
-            self.average = float(sum(ppN)/(len(ppN)))
-        except ZeroDivisionError:
-            print("Empty list of values. Defaulting average to 100")
+    def __init__(self, ratings, location, averagePPN):
+        self.average = averagePPN
         self.ratings = ratings
         self.city = location["city"]
         self.state = location["state"]
