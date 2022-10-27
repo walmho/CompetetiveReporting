@@ -1,10 +1,21 @@
 # More will be added here as html and css is used - essentially just adding backend analysis data to the frontend
 # report to make it look more pretty
 def dictFromLists(keys, values):
-    return dict(map(lambda i,j : (i,j) , keys,values))
+    """ Create a dictionary from two lists
+
+    Args:
+        keys (list): first list contains keys for new dict
+        values (list): second list contains values for new dict
+
+    Returns:
+        dict (dict): dictionary with {keys:values} corresponding
+
+    """
+
+    return dict(map(lambda i,j : (i,j), keys, values))
 
 def cleanDict(removeType, dictionary):
-    """ Remove all specific type of value from a dict
+    """ Remove all but one type of value from a dict
 
         Args:
             removeType (type): var type to convert to / keep
@@ -14,6 +25,7 @@ def cleanDict(removeType, dictionary):
             cleanDictionary (dict): dictionary with all other types purged
 
     """
+
     cleanDictionary = {}
     for key in dictionary:
         try:
@@ -26,7 +38,17 @@ def cleanDict(removeType, dictionary):
     # print(f"{dictionary}\n{cleanDictionary}\n\n\n{len(dictionary)}\n{len(cleanDictionary)}")
     return cleanDictionary
 
-def averagePPN(costValues):
+def findAverage(costValues):
+    """ Calculate the average; allows error exceptance
+
+    Args:
+        costValues (list): list of ppn values
+
+    Returns:
+        average (float): average in costValues list
+
+    """
+
     try:
         average = sum(costValues)/len(costValues)
     except ZeroDivisionError:
@@ -36,4 +58,15 @@ def averagePPN(costValues):
 
 #spendDef is the base price required for a house to be considered 'expensive'
 def expensiveRatings(costRating, spendDef=100):
+    """ Find the ratings of expensive houses within area
+
+    Args:
+        costRating (dict): Cost-Rating relationship
+        spendDef (int): The bar for a listing to be considered "expensive"
+
+    Returns:
+        expensiveListings (list): list of ratings for all expensive listings in 
+
+    """
+
     pass
