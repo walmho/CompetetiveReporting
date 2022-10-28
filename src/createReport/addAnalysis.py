@@ -69,4 +69,9 @@ def expensiveRatings(costRating, spendDef=100):
 
     """
 
-    pass
+    expensiveListings = []
+    for listing in costRating:
+        if listing >= spendDef:
+            expensiveListings.append(costRating[listing])
+
+    return expensiveListings

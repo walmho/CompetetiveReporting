@@ -3,6 +3,8 @@ import pandas as pd
 from datetime import datetime
 import pdfkit
 
+from createReport.addAnalysis import expensiveRatings
+
 config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
 
 class txtTemplate():
@@ -23,11 +25,13 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def __init__(self, totalScraped, ratings, location, averagePPN, unrated):
+    def __init__(self, totalScraped, ratings, location, averagePPN, unrated, expenseBar, highEndReviews):
         self.average = averagePPN
         self.ratings = ratings
         self.unrated = unrated
-        self.scraped = totalScraped
+        self.totalScraped = totalScraped
+        self.expenseBar = expenseBar
+        self.highEndReviews = highEndReviews
         self.city = location["city"]
         self.state = location["state"]
         self.country = location["country"]
@@ -49,10 +53,11 @@ class pdfTemplate():
             time=datetime.now(),
             averagePrice=self.average,
             unratedHouses = self.unrated,
-            totalScrapedHouses = (self.scraped*20)
+            totalScrapedHouses = (self.totalScraped*20),
+            expensiveBar = self.expenseBar,
+            expensiveRatingAverage = self.highEndReviews
 
-        )
-            
+        ) 
 
         html_path = "./outputs/updated.html"
         html_file = open(html_path, 'w+')

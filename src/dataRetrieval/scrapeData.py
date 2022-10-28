@@ -2,7 +2,7 @@ from msilib.schema import Error
 from bs4 import BeautifulSoup as bs
 import requests
 
-def get_page(city, state, country, n=20, debug=False):
+def get_page(city, state, country, n=1, debug=False):
     """ Scrape the first n*20 air bnb listings. 
     
         Args:
