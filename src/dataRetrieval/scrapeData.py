@@ -67,4 +67,3 @@ def get_page(city, state, country, n=1, debug=False):
         # print(f"{len(allRatings)}\n\n{allRatings}")
         print(e)
         return False, allPrices, allRatings
-    

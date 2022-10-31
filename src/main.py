@@ -1,13 +1,17 @@
+from gettext import find
 from numpy import average
 from dataRetrieval.scrapeData import get_page
-from createReport.addAnalysis import dictFromLists, cleanDict, findAverage, expensiveRatings
+from createReport.addAnalysis import dictFromLists, cleanDict, findAverage, expensiveRatings, cheapRatings
 from createReport.generateTemplate import pdfTemplate
 from sendReport.sendOff import pdfOut
 
 #temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
-n = 1
-costBar = 100
+n = 25
+
+#Could also automate what is considered to be "cheap" and "expensive" based on the mean, median, etc.
+costBar = 120
+cheapBar = 80
 
 """An important note is that the Airbnb website displays their best rated / superhost homes FIRST. This means that
 as of right now in the code, all scraped ratings are almost always going to be above 4. This makes data analysis
@@ -20,12 +24,14 @@ if __name__ == "__main__":
     status, ppN, ratings = get_page(location["city"], location["state"], location["country"], n, debug=False)
 
     costRatingRaw = dictFromLists(ppN, ratings)
-    #Cleaning the dictionary (ratings are marked as "new" if they are a new listing/have no ratings. This is a no-no)
     costRatingCleaned = cleanDict(float, costRatingRaw)
-    ppnAverage = findAverage(ppN)
-    unrated = (len(costRatingRaw) - len(costRatingCleaned))
-    highEndListings = round(findAverage(expensiveRatings(costRatingCleaned, costBar)), 2)
 
-    pdfOutput = pdfTemplate(n, ratings, location, ppnAverage, unrated, costBar, highEndListings)
+    ppnAverage = findAverage(ppN)
+    unratedHouses = (len(costRatingRaw) - len(costRatingCleaned))
+
+    highEndListings = round(findAverage(expensiveRatings(costRatingCleaned, costBar)), 2)
+    cheapListings = round(findAverage(cheapRatings(costRatingCleaned, cheapBar)), 2)
+
+    pdfOutput = pdfTemplate(n, ratings, location, ppnAverage, unratedHouses, costBar, highEndListings, cheapBar, cheapListings)
     pdfOutput.loadTemplate()
     pdfOut("outputs/updated.html", "outputs/report.pdf")

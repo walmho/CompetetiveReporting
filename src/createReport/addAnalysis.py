@@ -58,14 +58,14 @@ def findAverage(costValues):
 
 #spendDef is the base price required for a house to be considered 'expensive'
 def expensiveRatings(costRating, spendDef=100):
-    """ Find the ratings of expensive houses within area
+    """ Find the ratings of listings >= spendDef
 
     Args:
         costRating (dict): Cost-Rating relationship
         spendDef (int): The bar for a listing to be considered "expensive"
 
     Returns:
-        expensiveListings (list): list of ratings for all expensive listings in 
+        expensiveListings (list): list of ratings for all expensive listings in area
 
     """
 
@@ -75,3 +75,22 @@ def expensiveRatings(costRating, spendDef=100):
             expensiveListings.append(costRating[listing])
 
     return expensiveListings
+
+def cheapRatings(costRating, spendDef=80):
+    """ Find the ratings of listings <= spendDef
+
+    Args:
+        costRating (dict): Cost-Rating relationship
+        spendDef (int): The bar for a listing to be considered "cheap"
+
+    Returns:
+        cheapListings (list): list of ratings for all cheap listings in area
+
+    """
+
+    cheapListings = []
+    for listing in costRating:
+        if listing <= spendDef:
+            cheapListings.append(costRating[listing])
+
+    return cheapListings
