@@ -2,6 +2,8 @@ from msilib.schema import Error
 from bs4 import BeautifulSoup as bs
 import requests
 
+"""I  find it weird that no listing (except for ONE) has ever been under 4.5 stars...
+""" 
 def get_page(city, state, country, n=1, debug=False):
     """ Scrape the first n*20 air bnb listings. 
     
@@ -47,8 +49,12 @@ def get_page(city, state, country, n=1, debug=False):
             for l in listings:
                 #Find price and separate it from dollar sign
                 left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
-                price = int(left.split("$")[1])
+                priceString = str(left.split("$")[1])
                 #taking out any commas if a house is in the thousands
+                if "," in priceString:
+                    priceString.replace(",", "")
+                price = int(priceString.split("$")[1])
+
                 allPrices.append(price)
                 
                 #Find corresponding rating, separate it from html

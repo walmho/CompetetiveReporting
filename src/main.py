@@ -1,13 +1,15 @@
 from gettext import find
 from numpy import average
+from analysis.correlate import barGraphOccurences
 from dataRetrieval.scrapeData import get_page
+from analysis.correlate import barGraphOccurences
 from createReport.addAnalysis import dictFromLists, cleanDict, findAverage, expensiveRatings, cheapRatings
 from createReport.generateTemplate import pdfTemplate
 from sendReport.sendOff import pdfOut
 
 #temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
-n = 25
+n = 2
 
 #Could also automate what is considered to be "cheap" and "expensive" based on the mean, median, etc.
 costBar = 120
@@ -25,6 +27,7 @@ if __name__ == "__main__":
 
     costRatingRaw = dictFromLists(ppN, ratings)
     costRatingCleaned = cleanDict(float, costRatingRaw)
+    barGraphOccurences("Price, Per Night", list(costRatingCleaned.keys()), "Rating (out of 5)", list(costRatingCleaned.values()), "Price to Rating Comparison")
 
     ppnAverage = findAverage(ppN)
     unratedHouses = (len(costRatingRaw) - len(costRatingCleaned))
