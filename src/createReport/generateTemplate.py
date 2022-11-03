@@ -25,17 +25,23 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def __init__(self, totalScraped, ratings, location, averagePPN, unrated, expenseBar, expensiveReviews, cheapBar, cheapReviews, imageLocation, imageAlt):
+    def __init__(self, totalScraped, ratings, location, averagePPN, unrated, expensivePercentile, expensiveReviews, mostExpensive, cheapPercentile, cheapReviews, leastExpensive, imageLocation, imageAlt):
         self.average = averagePPN
         self.ratings = ratings
         self.unrated = unrated
         self.totalScraped = totalScraped
-        self.expenseBar = expenseBar
+
+        self.expensivePercentile = expensivePercentile
         self.expensiveReviews = expensiveReviews
-        self.cheapBar = cheapBar
+        self.cheapPercentile = cheapPercentile
         self.cheapReviews = cheapReviews
+
+        self.mostExpensive = mostExpensive
+        self.leastExpensive = leastExpensive
+
         self.graph = imageLocation
         self.alternateText = imageAlt
+
         self.city = location["city"]
         self.state = location["state"]
         self.country = location["country"]
@@ -58,10 +64,15 @@ class pdfTemplate():
             averagePrice=self.average,
             unratedHouses = self.unrated,
             totalScrapedHouses = (self.totalScraped*20),
-            expensiveBar = self.expenseBar,
+
+            expensivePercentile = self.expensivePercentile,
             expensiveRatingAverage = self.expensiveReviews,
-            cheapBar = self.cheapBar,
+            expensivePrice = self.mostExpensive,
+            
+            cheapPercentile = self.cheapPercentile,
             cheapRatingAverage = self.cheapReviews,
+            cheapPrice = self.leastExpensive,
+
             source = self.graph,
             alt = self.alternateText
 

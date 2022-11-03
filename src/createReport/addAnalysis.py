@@ -68,41 +68,44 @@ def expensiveRatings(costRating, percentile):
         percentile (int): The percenttile threshold to find houses more expensive than
 
     Returns:
-        topHouses (list): list of ratings for all expensive listings in area
+        topHouses (dict): list of ratings for all expensive listings in area
         top (int): most expensive housing price in area
-        percentTile (int): percent tile used to calculate
-
 
     """
 
     sortedListings = dict(sorted(costRating.items()))
-    print(sortedListings)
 
     #calculates percentile
     threshold = (np.percentile(list(sortedListings.keys()), percentile))
-    print(threshold)
-    topHouses = [x for x in sortedListings if x >= threshold]
-    print(topHouses)
+    topHouses = {}
+    for key in sortedListings.keys():
+        if key >= threshold:
+            topHouses[key] = sortedListings[key]
     top = max(topHouses)
-    print(top)
 
     return topHouses, top
 
-def cheapRatings(costRating, spendDef=80):
-    """ Find the ratings of listings <= spendDef
+def cheapRatings(costRating, percentile):
+    """ Find the cheapest listings below given percentTile
 
     Args:
         costRating (dict): Cost-Rating relationship
-        spendDef (int): The bar for a listing to be considered "cheap"
+        percentile (int): The percenttile threshold to find houses cheaper than
 
     Returns:
-        cheapListings (list): list of ratings for all cheap listings in area
+        lowHouses (dict): dict of ratings for all cheap listings in area
+        low (int): cheapest housing price in area
 
     """
 
-    cheapListings = []
-    for listing in costRating:
-        if listing <= spendDef:
-            cheapListings.append(costRating[listing])
+    sortedListings = dict(sorted(costRating.items()))
 
-    return cheapListings
+    #calculates percentile
+    threshold = (np.percentile(list(sortedListings.keys()), percentile))
+    lowHouses = {}
+    for key in sortedListings.keys():
+        if key <= threshold:
+            lowHouses[key] = (sortedListings[key])
+    low = min(lowHouses)
+
+    return lowHouses, low

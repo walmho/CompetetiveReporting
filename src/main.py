@@ -9,7 +9,8 @@ from sendReport.sendOff import pdfOut
 #temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
 n = 1
-percent = 90
+highPercent = 90
+lowPercent = 10
 
 """An important note is that the Airbnb website displays their best rated / superhost homes FIRST. This means that
 as of right now in the code, all scraped ratings are almost always going to be above 4. This makes data analysis
@@ -23,14 +24,32 @@ if __name__ == "__main__":
 
     costRatingRaw = dictFromLists(ppN, ratings)
     costRatingCleaned = cleanDict(float, costRatingRaw)
-    # barGraphOccurences("Price, Per Night", list(costRatingCleaned.keys()), "Rating (out of 5)", list(costRatingCleaned.values()), "Price to Rating Comparison")
+    barGraphOccurences("Price, Per Night", list(costRatingCleaned.keys()), "Rating (out of 5)", list(costRatingCleaned.values()), "Price to Rating Comparison")
 
     ppnAverage = findAverage(ppN, 2)
     unratedHouses = (len(costRatingRaw) - len(costRatingCleaned))
 
-    highEndListings, topHouse = (expensiveRatings(costRatingCleaned, percent))
-    # cheapListings = findAverage(cheapRatings(costRatingCleaned, cheapBar), 2)
+    highEndListings, topHouse = (expensiveRatings(costRatingCleaned, highPercent))
+    highAverage = findAverage(highEndListings.values(), 2)
 
-    # pdfOutput = pdfTemplate(n, ratings, location, ppnAverage, unratedHouses, costBar, highEndListings, cheapBar, cheapListings, ".\\outputs\\tempPlot.jpg", "ppnRatingComparison")
-    # pdfOutput.loadTemplate()
-    # pdfOut("outputs/updated.html", "outputs/report.pdf")
+    cheapListings, lowHouse = (cheapRatings(costRatingCleaned, lowPercent))
+    cheapAverage = findAverage(cheapListings.values(), 2)
+
+    pdfOutput = pdfTemplate(
+        n, 
+        ratings, 
+        location, 
+        ppnAverage, 
+        unratedHouses, 
+        highPercent, 
+        highAverage, 
+        topHouse, 
+        lowPercent, 
+        cheapAverage, 
+        lowHouse, 
+        ".\\outputs\\tempPlot.jpg", 
+        "ppnRatingComparison"
+        )
+    
+    pdfOutput.loadTemplate()
+    pdfOut("outputs/updated.html", "outputs/report.pdf")
