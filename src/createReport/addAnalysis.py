@@ -1,5 +1,7 @@
-# More will be added here as html and css is used - essentially just adding backend analysis data to the frontend
-# report to make it look more pretty
+from multiprocessing.sharedctypes import Array
+import numpy as np
+from pandas import array
+
 def dictFromLists(keys, values):
     """ Create a dictionary from two lists
 
@@ -38,11 +40,12 @@ def cleanDict(removeType, dictionary):
     # print(f"{dictionary}\n{cleanDictionary}\n\n\n{len(dictionary)}\n{len(cleanDictionary)}")
     return cleanDictionary
 
-def findAverage(costValues):
+def findAverage(costValues, roundPt):
     """ Calculate the average; allows error exceptance
 
     Args:
         costValues (list): list of ppn values
+        roundPt (int): # of decimal points to round to
 
     Returns:
         average (float): average in costValues list
@@ -50,31 +53,40 @@ def findAverage(costValues):
     """
 
     try:
-        average = sum(costValues)/len(costValues)
+        average = round((sum(costValues)/len(costValues)), roundPt)
     except ZeroDivisionError:
         print(f"list {costValues} may be empty. Defaulting value to 100.")
         average = 100
     return average
 
 #spendDef is the base price required for a house to be considered 'expensive'
-def expensiveRatings(costRating, spendDef=100):
-    """ Find the ratings of listings >= spendDef
+def expensiveRatings(costRating, percentile):
+    """ Find the top expensive listings above given percentTile
 
     Args:
         costRating (dict): Cost-Rating relationship
-        spendDef (int): The bar for a listing to be considered "expensive"
+        percentile (int): The percenttile threshold to find houses more expensive than
 
     Returns:
-        expensiveListings (list): list of ratings for all expensive listings in area
+        topHouses (list): list of ratings for all expensive listings in area
+        top (int): most expensive housing price in area
+        percentTile (int): percent tile used to calculate
+
 
     """
 
-    expensiveListings = []
-    for listing in costRating:
-        if listing >= spendDef:
-            expensiveListings.append(costRating[listing])
+    sortedListings = dict(sorted(costRating.items()))
+    print(sortedListings)
 
-    return expensiveListings
+    #calculates percentile
+    threshold = (np.percentile(list(sortedListings.keys()), percentile))
+    print(threshold)
+    topHouses = [x for x in sortedListings if x >= threshold]
+    print(topHouses)
+    top = max(topHouses)
+    print(top)
+
+    return topHouses, top
 
 def cheapRatings(costRating, spendDef=80):
     """ Find the ratings of listings <= spendDef

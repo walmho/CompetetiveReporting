@@ -49,11 +49,11 @@ def get_page(city, state, country, n=1, debug=False):
             for l in listings:
                 #Find price and separate it from dollar sign
                 left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
-                priceString = str(left.split("$")[1])
+                price = int(left.split("$")[1])
                 #taking out any commas if a house is in the thousands
-                if "," in priceString:
-                    priceString.replace(",", "")
-                price = int(priceString.split("$")[1])
+                #if "," in priceString:
+                #    priceString.replace(",", "")
+                # price = int(priceString.split("$")[1])
 
                 allPrices.append(price)
                 

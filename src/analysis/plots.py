@@ -18,4 +18,5 @@ def barGraphOccurences(xTitle, xValues, yTitle, yValues, title):
     plt.xlabel(xTitle)
     plt.ylabel(yTitle)
     plt.bar(sortedX, sortedY, width=2)
-    plt.show()
+
+    plt.savefig("./outputs/tempPlot.jpg")
