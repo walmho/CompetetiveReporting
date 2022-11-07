@@ -74,7 +74,7 @@ class pdfTemplate():
             cheapPrice = self.leastExpensive,
 
             source = self.graph,
-            alt = self.alternateText
+            alt = self.alternateText,
 
         ) 
 

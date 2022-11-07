@@ -1,6 +1,7 @@
 from msilib.schema import Error
 from bs4 import BeautifulSoup as bs
 import requests
+import numpy as np
 
 """I  find it weird that no listing (except for ONE) has ever been under 4.5 stars...
 """ 
@@ -22,54 +23,60 @@ def get_page(city, state, country, n=1, debug=False):
     
     allPrices = []
     allRatings = []
-    
-    try:
-        # Create base string
-        city = city.replace(" ","-")
-        country = country.replace(" ", "-")
+    errors = 0
 
-        # Get 4 pages of info
+    # try:
+    # Create base string
+    city = city.replace(" ","-")
+    country = country.replace(" ", "-")
 
-        links = [f"http://airbnb.com/s/{city}--{state}--{country}/homes?tab_id=home_tab&" + \
-                 "refinement_paths%5B%5D=%2Fhomes&" + \
-                 f"flexible_trip_lengths%5B%5D=one_week&items_offset={20*(i+1)}&section_offset=3" 
-                 for i in range(n)]
+    # Get 4 pages of info
 
-        if debug:
-            for l in links:
-                print(f"Link: {l}")
+    links = [f"http://airbnb.com/s/{city}--{state}--{country}/homes?tab_id=home_tab&" + \
+                "refinement_paths%5B%5D=%2Fhomes&" + \
+                f"flexible_trip_lengths%5B%5D=one_week&items_offset={20*(i+1)}&section_offset=3" 
+                for i in range(n)]
 
+    if debug:
         for l in links:
+            print(f"Link: {l}")
 
-            res = requests.get(l)
-            soup = bs(res.text, 'html.parser')
+    for l in links:
 
-            listings = soup.find_all("div", {"class": "c4mnd7m dir dir-ltr"})
+        res = requests.get(l)
+        soup = bs(res.text, 'html.parser')
 
-            for l in listings:
-                #Find price and separate it from dollar sign
-                left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
-                price = int(left.split("$")[1])
-                #taking out any commas if a house is in the thousands
-                #if "," in priceString:
-                #    priceString.replace(",", "")
-                # price = int(priceString.split("$")[1])
+        # print("Parser setup complete\n")
+        listings = soup.find_all("div", {"class": "c4mnd7m dir dir-ltr"})
 
-                allPrices.append(price)
-                
-                #Find corresponding rating, separate it from html
+        for l in listings:
+            #Find price and separate it from dollar sign
+            left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
+            price = int(left.split("$")[1])
+            #taking out any commas if a house is in the thousands
+            #if "," in priceString:
+            #    priceString.replace(",", "")
+            # price = int(priceString.split("$")[1])
+
+            allPrices.append(price)
+            
+            #Find corresponding rating, separate it from html
+
+            try:
                 rating = str(l.find_all("span", {"class": "r1dxllyb dir dir-ltr"})[0]).split(" per")[0]
-                ratingValue = str((rating.split(">")[1]).split("(")[0])
-
-                #Defaulting new listings without any ratings to a string value. May want to consider removing corresponding houses
-                if ratingValue[0] == "N":
+                # print(rating)
+                ratingValue = str((rating.split("("))[0])
+                # print(ratingValue)
+                dataPos = ratingValue.rfind(">")+1
+                ratingValue = ratingValue[dataPos:]
+                # print(ratingValue)
+                
+                if str(ratingValue)[0] == "N":
                     ratingValue = "New"
-                allRatings.append(ratingValue)
 
-        return True, allPrices, allRatings
-    
-    except Exception as e:
-        # print(f"{len(allPrices)}\n\n{allPrices}")
-        # print(f"{len(allRatings)}\n\n{allRatings}")
-        print(e)
-        return False, allPrices, allRatings
+            except IndexError:
+                ratingValue = "New"
+
+            allRatings.append(ratingValue)
+
+    return True, allPrices, allRatings, errors

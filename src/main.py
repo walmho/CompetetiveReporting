@@ -8,9 +8,9 @@ from sendReport.sendOff import pdfOut
 
 #temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
-n = 1
-highPercent = 90
-lowPercent = 10
+n = 20
+highPercent = 80
+lowPercent = 20
 
 """An important note is that the Airbnb website displays their best rated / superhost homes FIRST. This means that
 as of right now in the code, all scraped ratings are almost always going to be above 4. This makes data analysis
@@ -20,10 +20,11 @@ scrape 10x more data when creating the final report.
 if __name__ == "__main__":
     outFile = "outputs/output.txt"
     templateFile = "templates/mainLayout.html"
-    status, ppN, ratings = get_page(location["city"], location["state"], location["country"], n, debug=False)
+    status, ppN, ratings, errors = get_page(location["city"], location["state"], location["country"], n, debug=False)
 
     costRatingRaw = dictFromLists(ppN, ratings)
     costRatingCleaned = cleanDict(float, costRatingRaw)
+
     barGraphOccurences("Price, Per Night", list(costRatingCleaned.keys()), "Rating (out of 5)", list(costRatingCleaned.values()), "Price to Rating Comparison")
 
     ppnAverage = findAverage(ppN, 2)
@@ -31,7 +32,6 @@ if __name__ == "__main__":
 
     highEndListings, topHouse = (expensiveRatings(costRatingCleaned, highPercent))
     highAverage = findAverage(highEndListings.values(), 2)
-
     cheapListings, lowHouse = (cheapRatings(costRatingCleaned, lowPercent))
     cheapAverage = findAverage(cheapListings.values(), 2)
 
@@ -48,7 +48,8 @@ if __name__ == "__main__":
         cheapAverage, 
         lowHouse, 
         ".\\outputs\\tempPlot.jpg", 
-        "ppnRatingComparison"
+        "ppnRatingComparison",
+
         )
     
     pdfOutput.loadTemplate()
