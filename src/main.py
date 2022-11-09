@@ -50,8 +50,7 @@ if __name__ == "__main__":
         topHouse, 
         lowPercent, 
         cheapAverage, 
-        lowHouse, 
-        plotSave, 
+        lowHouse,  
         "ppnRatingComparison"
 
         )
