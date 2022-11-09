@@ -1,5 +1,3 @@
-from gettext import find
-from numpy import average
 from analysis.plots import barGraphOccurences
 from dataRetrieval.scrapeData import get_page
 from createReport.addAnalysis import dictFromLists, cleanDict, findAverage, expensiveRatings, cheapRatings
@@ -8,7 +6,7 @@ from sendReport.sendOff import pdfOut
 
 #temp
 location = {"city":"Hillsboro", "state":"Oregon", "country":"US"}
-n = 20
+n = 1
 highPercent = 80
 lowPercent = 20
 
@@ -18,14 +16,20 @@ only tell one side of the story. may want to consider updating scraping methods 
 scrape 10x more data when creating the final report.
 """
 if __name__ == "__main__":
-    outFile = "outputs/output.txt"
+    plotSave = "./outputs/tempPlot.jpg"
     templateFile = "templates/mainLayout.html"
     status, ppN, ratings, errors = get_page(location["city"], location["state"], location["country"], n, debug=False)
 
     costRatingRaw = dictFromLists(ppN, ratings)
     costRatingCleaned = cleanDict(float, costRatingRaw)
 
-    barGraphOccurences("Price, Per Night", list(costRatingCleaned.keys()), "Rating (out of 5)", list(costRatingCleaned.values()), "Price to Rating Comparison")
+    barGraphOccurences("Price, Per Night",
+    list(costRatingCleaned.keys()), 
+    "Rating (out of 5)", 
+    list(costRatingCleaned.values()), 
+    "Price to Rating Comparison",
+    plotSave
+    )
 
     ppnAverage = findAverage(ppN, 2)
     unratedHouses = (len(costRatingRaw) - len(costRatingCleaned))
@@ -47,8 +51,8 @@ if __name__ == "__main__":
         lowPercent, 
         cheapAverage, 
         lowHouse, 
-        ".\\outputs\\tempPlot.jpg", 
-        "ppnRatingComparison",
+        plotSave, 
+        "ppnRatingComparison"
 
         )
     

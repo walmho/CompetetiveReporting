@@ -52,6 +52,8 @@ class pdfTemplate():
         Returns:
             Writes to a proxy html file with new data
         """
+        # print(self.graph)
+
         template_loader = FileSystemLoader(searchpath="./templates")
         template_env = Environment(loader=template_loader)
         template_file = "mainLayout.html"
@@ -73,7 +75,7 @@ class pdfTemplate():
             cheapRatingAverage = self.cheapReviews,
             cheapPrice = self.leastExpensive,
 
-            source = self.graph,
+            # source = self.graph,
             alt = self.alternateText,
 
         ) 

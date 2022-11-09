@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def barGraphOccurences(xTitle, xValues, yTitle, yValues, title):
+def barGraphOccurences(xTitle, xValues, yTitle, yValues, title, tempSave):
     """Create a bar graph of # of occurences using two list values
     Args:
         xValues (list): xValues to graph
@@ -19,4 +19,4 @@ def barGraphOccurences(xTitle, xValues, yTitle, yValues, title):
     plt.ylabel(yTitle)
     plt.bar(sortedX, sortedY, width=2)
 
-    plt.savefig("./outputs/tempPlot.jpg")
+    plt.savefig(tempSave)
