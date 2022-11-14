@@ -1,4 +1,4 @@
-from analysis.plots import barGraphOccurences
+from analysis.plots import makeGraphs
 from dataRetrieval.scrapeData import get_page
 from createReport.addAnalysis import dictFromLists, cleanDict, findAverage, expensiveRatings, cheapRatings
 from createReport.generateTemplate import pdfTemplate
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     costRatingRaw = dictFromLists(ppN, ratings)
     costRatingCleaned = cleanDict(float, costRatingRaw)
 
-    barGraphOccurences("Price, Per Night",
+    makeGraphs("Price, Per Night",
     list(costRatingCleaned.keys()), 
     "Rating (out of 5)", 
     list(costRatingCleaned.values()), 

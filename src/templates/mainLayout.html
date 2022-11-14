@@ -12,21 +12,19 @@
     <div>This report scraped a total of {{totalScrapedHouses}} listings</div>
     <div>Date Created: {{time}}</div>
 
-    <h2>Report Overview:</h2>
-    <b>Average listing price: $</b>
-    <div style="display: inline-block">{{averagePrice}}</div>
-    <p>(Please note that the above average is calculated only using collected data.
+    <h2>Listing Prices and Ratings</h2>
+    <b style="font-size: 14px;">Average listing price: </b>
+    <div style="font-size: 14px; display: inline-block">${{averagePrice}}</div>
+    <p style="font-size: 10px">Please note that the above average is calculated only using collected data.
         This means that the average price per night may differ in accuracy and number depending 
-        on the selcted dataset size)
+        on the selcted dataset size
     </p>
-    <p>There were {{unratedHouses}} scraped listings that have not yet been rated in this area</p>
+    <b>{{unratedHouses}} scraped listings have not yet been rated in this area</b>
     <p>Listings above the {{expensivePercentile}} percentile in price scored an average of {{expensiveRatingAverage}} stars. The most expensive listing scraped cost ${{expensivePrice}} per night.</p>
     <p>Listings below the {{cheapPercentile}} percentile in price scored an average of {{cheapRatingAverage}} stars. The cheapest listing scraped cost ${{cheapPrice}} per night.</p>
 
-    <h3>Graphs:</h3>
-    <p>Figure 1 demonstrates relationship between rating and price, per night</p>
-    <img src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" alt={{alt}} width="500" height="350"/>
-    <br>
+    <img src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" alt={{alt}} width="500" height="400"/>
+    <p>Fig. 1 Demonstrating relationship between listing price and rating</p>
 </body>
 
 </html>
