@@ -1,6 +1,6 @@
 from multiprocessing.sharedctypes import Array
 import numpy as np
-from pandas import array
+import pandas as pd
 
 def dictFromLists(keys, values):
     """ Create a dictionary from two lists
@@ -109,3 +109,30 @@ def cheapRatings(costRating, percentile):
     low = min(lowHouses)
 
     return lowHouses, low
+
+def bedStatistics(bedList):
+    """ Find stats about # of beds in area
+
+    Args:
+        bedList (list): # of beds per each listing
+
+    Returns:
+        bedMin (int): least # of beds per listing
+        bedMax (int): highest # of beds per listing
+        bedAverage (int): average # of beds, rounded
+        bedAmounts (dict): the number of listings that had each number of beds
+
+    """
+
+    tempArray = np.array(bedList)
+    unique = np.unique(tempArray)
+
+    bedMin = min(bedList)
+    bedMax = max(bedList)
+    bedAverage = round(sum(bedList)/len(bedList))
+    bedCounts = pd.Series(bedList).value_counts()
+    bedCounts = pd.Series.tolist(bedCounts)
+
+    bedAmounts = dictFromLists(unique, bedCounts)
+
+    return bedMin, bedMax, bedAverage, bedAmounts

@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html>
+    <title>Airbnb Report</title>
 
-<title>Airbnb Report</title>
+    <div class="title">
+        <h1>Airbnb Report</h1>
+    </div>
 
-<head>
-</head>
+    <div class="reportHeader">
+        <p>Airbnb Hosting report for Hillsboro, Oregon, US</p>
+        <p>This report scraped a total of 200 listings</p>
+        <p>Date Created: 2022-11-15 14:19:56.370128</p>
+    </div>
 
-<body style="font-family: sans-serif;">
-    <h1 align="center">Airbnb Report</h1>
-    <div>Airbnb Hosting report for Hillsboro, Oregon, US</div>
-    <div>This report scraped a total of 20 listings</div>
-    <div>Date Created: 2022-11-13 18:25:55.191842</div>
+    <div class="overview">
+        <h2>Listing Prices and Ratings</h2>
+        <b>Average listing price: $92.14*</b>
+    </div>
 
-    <h2>Listing Prices and Ratings</h2>
-    <b style="font-size: 14px;">Average listing price: </b>
-    <div style="font-size: 14px; display: inline-block">$58.75</div>
-    <p style="font-size: 10px">Please note that the above average is calculated only using collected data.
-        This means that the average price per night may differ in accuracy and number depending 
-        on the selcted dataset size
-    </p>
-    <b>1 scraped listings have not yet been rated in this area</b>
-    <p>Listings above the 80 percentile in price scored an average of 4.83 stars. The most expensive listing scraped cost $119 per night.</p>
-    <p>Listings below the 20 percentile in price scored an average of 4.82 stars. The cheapest listing scraped cost $28 per night.</p>
+    <div class="priceRatings">
+        <div id="plot"></div>
+            <p>
+                <img style="float: left;" src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" 
+                alt=ppnRatingComparison width="500" height="400" 
+                title="Fig. 1 Demonstrating relationship between listing price and rating"/>
+                <br>
+                <br>
+                <br>
+                Listings above the 90 percentile, by price, scored an average of 
+                4.93 stars. The most expensive listing that was scraped cost 
+                $349 per night. Listings below the 10 percentile, by price,
+                scored an average of 4.79 stars. The cheapest listing that was scraped cost 
+                $28 per night.
+            </p>
+        </div>
 
-    <img src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" alt=ppnRatingComparison width="500" height="400"/>
-    <p>Fig. 1 Demonstrating relationship between listing price and rating</p>
-</body>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="beds">
+        <div id="pie">
+            <p style="margin-top: 100px;">
+                <img style="float: right; margin-left: 100px;" src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPie.jpg" 
+                alt="PIE" width="500" height="400" title="Fig. 2 Showing distribution of # of beds in each listing"/>
+                <br>
+                <br>
+                It is most common for listings in Hillsboro to have 2 beds. However, this report found 
+                that listings in the area range from having anywhere from 1 bed to 7 beds.
+            </p>
+            
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="footnotes", style="text-align: bottom">
+        <p>*Please note that the above average is calculated only using collected data. 
+            This means that the average price per night may differ in accuracy and number depending 
+            on how many listings were scraped.
+        </p>
+    </div>
 
 </html>

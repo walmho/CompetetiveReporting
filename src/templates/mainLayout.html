@@ -1,30 +1,83 @@
 <!DOCTYPE html>
 <html>
+    <title>Airbnb Report</title>
 
-<title>Airbnb Report</title>
+    <div class="title">
+        <h1>Airbnb Report</h1>
+    </div>
 
-<head>
-</head>
+    <div class="reportHeader">
+        <p>Airbnb Hosting report for {{city}}, {{state}}, {{country}}</p>
+        <p>This report scraped a total of {{totalScrapedHouses}} listings</p>
+        <p>Date Created: {{time}}</p>
+    </div>
 
-<body style="font-family: sans-serif;">
-    <h1 align="center">Airbnb Report</h1>
-    <div>Airbnb Hosting report for {{city}}, {{state}}, {{country}}</div>
-    <div>This report scraped a total of {{totalScrapedHouses}} listings</div>
-    <div>Date Created: {{time}}</div>
+    <div class="overview">
+        <h2>Listing Prices and Ratings</h2>
+        <b>Average listing price: ${{averagePrice}}*</b>
+    </div>
 
-    <h2>Listing Prices and Ratings</h2>
-    <b style="font-size: 14px;">Average listing price: </b>
-    <div style="font-size: 14px; display: inline-block">${{averagePrice}}</div>
-    <p style="font-size: 10px">Please note that the above average is calculated only using collected data.
-        This means that the average price per night may differ in accuracy and number depending 
-        on the selcted dataset size
-    </p>
-    <b>{{unratedHouses}} scraped listings have not yet been rated in this area</b>
-    <p>Listings above the {{expensivePercentile}} percentile in price scored an average of {{expensiveRatingAverage}} stars. The most expensive listing scraped cost ${{expensivePrice}} per night.</p>
-    <p>Listings below the {{cheapPercentile}} percentile in price scored an average of {{cheapRatingAverage}} stars. The cheapest listing scraped cost ${{cheapPrice}} per night.</p>
+    <div class="priceRatings">
+        <div id="plot"></div>
+            <p>
+                <img style="float: left;" src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" 
+                alt={{alt}} width="500" height="400" 
+                title="Fig. 1 Demonstrating relationship between listing price and rating"/>
+                <br>
+                <br>
+                <br>
+                Listings above the {{expensivePercentile}} percentile, by price, scored an average of 
+                {{expensiveRatingAverage}} stars. The most expensive listing that was scraped cost 
+                ${{expensivePrice}} per night. Listings below the {{cheapPercentile}} percentile, by price,
+                scored an average of {{cheapRatingAverage}} stars. The cheapest listing that was scraped cost 
+                ${{cheapPrice}} per night.
+            </p>
+        </div>
 
-    <img src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPlot.jpg" alt={{alt}} width="500" height="400"/>
-    <p>Fig. 1 Demonstrating relationship between listing price and rating</p>
-</body>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="beds">
+        <div id="pie">
+            <p style="margin-top: 100px;">
+                <img style="float: right; margin-left: 100px;" src="file:///Users/ryan_/Documents/Programming/repos/CompetetiveReporting/src/outputs/tempPie.jpg" 
+                alt="PIE" width="500" height="400" title="Fig. 2 Showing distribution of # of beds in each listing"/>
+                <br>
+                <br>
+                It is most common for listings in {{city}} to have {{bedNumber}} bed{{s1}}. However, this report found 
+                that listings in the area range from having anywhere from {{bedMin}} bed{{s2}} to {{bedMax}} beds.
+            </p>
+            
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="footnotes", style="text-align: bottom">
+        <p>*Please note that the above average is calculated only using collected data. 
+            This means that the average price per night may differ in accuracy and number depending 
+            on how many listings were scraped.
+        </p>
+    </div>
 
 </html>

@@ -23,6 +23,7 @@ def get_page(city, state, country, n=1, debug=False):
     
     allPrices = []
     allRatings = []
+    allBeds = []
     errors = 0
 
     # try:
@@ -51,6 +52,7 @@ def get_page(city, state, country, n=1, debug=False):
 
         for l in listings:
             #Find price and separate it from dollar sign
+
             left = str(l.find_all("span", {"class": "a8jt5op dir dir-ltr"})[0]).split(" per")[0]
             price = int(left.split("$")[1])
             #taking out any commas if a house is in the thousands
@@ -61,7 +63,6 @@ def get_page(city, state, country, n=1, debug=False):
             allPrices.append(price)
             
             #Find corresponding rating, separate it from html
-
             try:
                 rating = str(l.find_all("span", {"class": "r1dxllyb dir dir-ltr"})[0]).split(" per")[0]
                 # print(rating)
@@ -79,4 +80,11 @@ def get_page(city, state, country, n=1, debug=False):
 
             allRatings.append(ratingValue)
 
-    return True, allPrices, allRatings, errors
+            #Find amenities
+            beds = (l.find_all(attrs={"class": "f15liw5s s1cjsi4j dir dir-ltr"}))
+            bed = str(beds[1])
+            bedValue = int(str((bed).split(">")[2])[0])
+
+            allBeds.append(bedValue)
+
+    return True, allPrices, allRatings, allBeds, errors

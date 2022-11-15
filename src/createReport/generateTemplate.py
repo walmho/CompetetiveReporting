@@ -25,7 +25,7 @@ class txtTemplate():
             f.write(f"Report generated at {datetime.now()}\n")
 
 class pdfTemplate():
-    def __init__(self, totalScraped, ratings, location, averagePPN, unrated, expensivePercentile, expensiveReviews, mostExpensive, cheapPercentile, cheapReviews, leastExpensive, imageAlt):
+    def __init__(self, totalScraped, ratings, location, averagePPN, unrated, expensivePercentile, expensiveReviews, mostExpensive, cheapPercentile, cheapReviews, leastExpensive, imageAlt, bedNumber, s1, s2, bedMin, bedMax):
         self.average = averagePPN
         self.ratings = ratings
         self.unrated = unrated
@@ -40,6 +40,12 @@ class pdfTemplate():
         self.leastExpensive = leastExpensive
 
         self.alternateText = imageAlt
+
+        self.bedNumber = bedNumber
+        self.s1 = s1
+        self.s2 = s2
+        self.bedMin = bedMin
+        self.bedMax = bedMax
 
         self.city = location["city"]
         self.state = location["state"]
@@ -75,6 +81,12 @@ class pdfTemplate():
             cheapPrice = self.leastExpensive,
 
             alt = self.alternateText,
+
+            bedNumber = self.bedNumber,
+            s1 = self.s1,
+            s2 = self.s2,
+            bedMin = self.bedMin,    
+            bedMax = self.bedMax       
 
         ) 
 
